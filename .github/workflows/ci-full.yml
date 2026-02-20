@@ -160,7 +160,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: eqtylab-actions/install-nix-action@v31
-      - run: nix build .#cupcake-cli
+      - run: nix build .#cupcake-cli -L
 
   fmt:
     name: Format
