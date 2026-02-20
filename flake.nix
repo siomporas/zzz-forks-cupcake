@@ -56,8 +56,9 @@
               filter =
                 let
                   regoFilter = path: _type: builtins.match ".*rego$" path != null;
+                  ymlFilter = path: _type: builtins.match ".*yml$" path != null;
                 in
-                path: _type: (regoFilter path _type) || (craneLib.filterCargoSources path _type);
+                path: _type: (regoFilter path _type) || (ymlFilter path _type) || (craneLib.filterCargoSources path _type);
             };
           });
 
