@@ -23,7 +23,7 @@
           targets = [ "wasm32-unknown-unknown" ];
         };
 
-        rust = (pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain).override rust-config;
+        rust = (pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml).override rust-config;
 
         craneLib = (inputs.crane.mkLib pkgs).overrideToolchain rust;
 
@@ -56,8 +56,9 @@
               filter =
                 let
                   regoFilter = path: _type: builtins.match ".*rego$" path != null;
+                  ymlFilter = path: _type: builtins.match ".*yml$" path != null;
                 in
-                path: _type: (regoFilter path _type) || (craneLib.filterCargoSources path _type);
+                path: _type: (regoFilter path _type) || (ymlFilter path _type) || (craneLib.filterCargoSources path _type);
             };
           });
 
