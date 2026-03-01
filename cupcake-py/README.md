@@ -251,7 +251,3 @@ The Python wrapper follows the same pattern as the TypeScript bindings:
 | `installer.ts` → OPA auto-download | `_installer.py` → OPA auto-download |
 | `evaluateAsync` → libuv threadpool | `evaluate()` → `ThreadPoolExecutor` |
 | `evaluateSync` → blocks event loop | `evaluate_sync()` → blocks thread |
-
-## License
-
-MIT
