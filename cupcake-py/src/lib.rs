@@ -49,9 +49,8 @@ impl PyPolicyEngine {
     #[pyo3(signature = (path, harness=None))]
     fn new(path: String, harness: Option<String>) -> PyResult<Self> {
         let harness_str = harness.as_deref().unwrap_or("claude");
-        let engine = BindingEngine::new(&path, harness_str).map_err(|e| {
-            PyRuntimeError::new_err(format!("Failed to initialize engine: {e}"))
-        })?;
+        let engine = BindingEngine::new(&path, harness_str)
+            .map_err(|e| PyRuntimeError::new_err(format!("Failed to initialize engine: {e}")))?;
         Ok(Self { inner: engine })
     }
 
@@ -91,7 +90,11 @@ impl PyPolicyEngine {
     }
 
     fn __repr__(&self) -> String {
-        format!("PolicyEngine(version={:?}, ready={})", self.inner.version(), self.inner.is_ready())
+        format!(
+            "PolicyEngine(version={:?}, ready={})",
+            self.inner.version(),
+            self.inner.is_ready()
+        )
     }
 }
 

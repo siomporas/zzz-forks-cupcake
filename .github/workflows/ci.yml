@@ -118,16 +118,21 @@ jobs:
           sudo mv opa /usr/local/bin/
           opa version
 
-      - name: Install maturin and test dependencies
-        run: pip install maturin pytest pytest-asyncio
+      - name: Create virtualenv and install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install maturin pytest pytest-asyncio
 
       - name: Build Python bindings
         run: |
+          source .venv/bin/activate
           cd cupcake-py
           maturin develop --release
 
       - name: Run Python tests
         run: |
+          source .venv/bin/activate
           cd cupcake-py
           pytest tests/ -v
         env:
