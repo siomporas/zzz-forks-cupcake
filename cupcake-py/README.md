@@ -6,11 +6,38 @@ Built with [PyO3](https://pyo3.rs) + [maturin](https://www.maturin.rs), wrapping
 
 ## Installation
 
+> **Note:** `cupcake` is not yet published to PyPI. Install from source using one of the methods below.
+
+### From source (maturin)
+
 ```bash
-pip install cupcake
+# Clone the repo
+git clone https://github.com/eqtylab/cupcake.git
+cd cupcake/cupcake-py
+
+# Build and install in one step (editable/dev mode)
+pip install maturin
+maturin develop --release
+
+# Or build a wheel and install it
+maturin build --release
+pip install ../target/wheels/cupcake-*.whl
 ```
 
-Or build from source (see [Development](#development) below).
+### From source (Nix)
+
+```bash
+nix build .#cupcake-py
+```
+
+### Using just
+
+```bash
+just build-python        # Build bindings
+just build-python-wheel  # Build distributable wheel
+```
+
+See [Development](#development) for full prerequisites and details.
 
 ## Quick Start
 
